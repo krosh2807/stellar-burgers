@@ -3,7 +3,8 @@ import { Tab } from '@zlden/react-developer-burger-ui-components';
 
 import styles from './burger-ingredients.module.css';
 import { BurgerIngredientsUIProps } from './type';
-import { IngredientsCategory } from '@components';
+import { IngredientsCategoryUI } from '../ingredients-category/ingredients-category';
+import { useSelector } from '../../../services/store';
 
 export const BurgerIngredientsUI: FC<BurgerIngredientsUIProps> = memo(
   ({
@@ -18,8 +19,22 @@ export const BurgerIngredientsUI: FC<BurgerIngredientsUIProps> = memo(
     mainsRef,
     saucesRef,
     onTabClick
-  }) => (
-    <>
+  }) => {
+    const constructorBun = useSelector((state) => state.burgerConstructor.bun);
+    const constructorIngredients = useSelector(
+      (state) => state.burgerConstructor.ingredients
+    );
+
+    // Счётчики для каждого ингредиента
+    const ingredientsCounters: Record<string, number> = {};
+    if (constructorBun) {
+      ingredientsCounters[constructorBun._id] = 2;
+    }
+    constructorIngredients.forEach((item) => {
+      ingredientsCounters[item._id] = (ingredientsCounters[item._id] || 0) + 1;
+    });
+
+    return (
       <section className={styles.burger_ingredients}>
         <nav>
           <ul className={styles.menu}>
@@ -43,26 +58,29 @@ export const BurgerIngredientsUI: FC<BurgerIngredientsUIProps> = memo(
           </ul>
         </nav>
         <div className={styles.content}>
-          <IngredientsCategory
+          <IngredientsCategoryUI
             title='Булки'
             titleRef={titleBunRef}
             ingredients={buns}
+            ingredientsCounters={ingredientsCounters}
             ref={bunsRef}
           />
-          <IngredientsCategory
+          <IngredientsCategoryUI
             title='Начинки'
             titleRef={titleMainRef}
             ingredients={mains}
+            ingredientsCounters={ingredientsCounters}
             ref={mainsRef}
           />
-          <IngredientsCategory
+          <IngredientsCategoryUI
             title='Соусы'
             titleRef={titleSaucesRef}
             ingredients={sauces}
+            ingredientsCounters={ingredientsCounters}
             ref={saucesRef}
           />
         </div>
       </section>
-    </>
-  )
+    );
+  }
 );
