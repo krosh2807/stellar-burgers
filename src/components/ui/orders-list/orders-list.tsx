@@ -14,7 +14,7 @@ export const OrdersListUI: FC<OrdersListUIProps> = ({
       <OrderCard
         order={order}
         key={order._id}
-        onClick={() => handleOrderClick(order._id)}
+        onClick={() => handleOrderClick(String(order.number))}
       />
     ))}
   </div>

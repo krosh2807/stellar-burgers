@@ -13,6 +13,7 @@ interface OrdersState {
   error: string | null;
   total: number;
   totalToday: number;
+  currentOrder: TOrder | null;
 }
 
 const initialState: OrdersState = {
@@ -21,7 +22,8 @@ const initialState: OrdersState = {
   isLoading: false,
   error: null,
   total: 0,
-  totalToday: 0
+  totalToday: 0,
+  currentOrder: null
 };
 
 export const fetchFeedOrders = createAsyncThunk(
@@ -58,9 +60,9 @@ export const fetchUserOrders = createAsyncThunk(
 
 export const fetchOrderById = createAsyncThunk(
   'orders/fetchOrderById',
-  async (number: string, thunkAPI) => {
+  async (id: string, thunkAPI) => {
     try {
-      const res = await getOrderByNumberApi(Number(number));
+      const res = await getOrderByNumberApi(id);
       if (res.orders && res.orders.length > 0) {
         return res.orders[0];
       }
@@ -80,6 +82,7 @@ const ordersSlice = createSlice({
       state.userOrders = [];
       state.isLoading = false;
       state.error = null;
+      state.currentOrder = null;
     }
   },
   extraReducers: (builder) => {
@@ -118,6 +121,7 @@ const ordersSlice = createSlice({
       })
       .addCase(fetchOrderById.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.currentOrder = action.payload;
         const existsFeed = state.feedOrders.some(
           (o) => o._id === action.payload._id
         );

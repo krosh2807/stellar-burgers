@@ -29,8 +29,8 @@ export const Feed: FC = () => {
   }, [dispatch]);
 
   const handleOrderClick = useCallback(
-    (orderId: string) => {
-      navigate(`/feed/${orderId}`, { state: { background: location } });
+    (orderNumber: string) => {
+      navigate(`/feed/${orderNumber}`, { state: { background: location } });
     },
     [navigate, location]
   );
