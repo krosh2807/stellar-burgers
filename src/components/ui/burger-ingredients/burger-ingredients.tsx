@@ -35,16 +35,22 @@ export const BurgerIngredientsUI: FC<BurgerIngredientsUIProps> = memo(
     });
 
     return (
-      <section className={styles.burger_ingredients}>
+      <section className={styles.burger_ingredients} data-testid="ingredients-section">
         <nav>
-          <ul className={styles.menu}>
-            <Tab value='bun' active={currentTab === 'bun'} onClick={onTabClick}>
+          <ul className={styles.menu} data-testid="ingredients-tabs">
+            <Tab 
+              value='bun' 
+              active={currentTab === 'bun'} 
+              onClick={onTabClick}
+              data-testid="bun-tab"
+            >
               Булки
             </Tab>
             <Tab
               value='main'
               active={currentTab === 'main'}
               onClick={onTabClick}
+              data-testid="main-tab"
             >
               Начинки
             </Tab>
@@ -52,18 +58,20 @@ export const BurgerIngredientsUI: FC<BurgerIngredientsUIProps> = memo(
               value='sauce'
               active={currentTab === 'sauce'}
               onClick={onTabClick}
+              data-testid="sauce-tab"
             >
               Соусы
             </Tab>
           </ul>
         </nav>
-        <div className={styles.content}>
+        <div className={styles.content} data-testid="ingredients-content">
           <IngredientsCategoryUI
             title='Булки'
             titleRef={titleBunRef}
             ingredients={buns}
             ingredientsCounters={ingredientsCounters}
             ref={bunsRef}
+            data-testid="buns-section"
           />
           <IngredientsCategoryUI
             title='Начинки'
@@ -71,6 +79,7 @@ export const BurgerIngredientsUI: FC<BurgerIngredientsUIProps> = memo(
             ingredients={mains}
             ingredientsCounters={ingredientsCounters}
             ref={mainsRef}
+            data-testid="mains-section"
           />
           <IngredientsCategoryUI
             title='Соусы'
@@ -78,6 +87,7 @@ export const BurgerIngredientsUI: FC<BurgerIngredientsUIProps> = memo(
             ingredients={sauces}
             ingredientsCounters={ingredientsCounters}
             ref={saucesRef}
+            data-testid="sauces-section"
           />
         </div>
       </section>

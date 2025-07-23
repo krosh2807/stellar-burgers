@@ -20,18 +20,23 @@ export const ModalUI: FC<TModalUIProps> = memo(
 
     return (
       <>
-        <div className={styles.modal}>
+        <div className={styles.modal} data-cy="modal-open" data-testid="ingredient-details-modal">
           <div className={styles.header}>
             <h3 className={`${styles.title} text text_type_main-large`}>
               {title}
             </h3>
-            <button className={styles.button} type='button'>
-              <CloseIcon type='primary' onClick={onClose} />
+            <button
+              className={styles.button}
+              type="button"
+              onClick={onClose}
+              data-testid="modal-close"
+            >
+              <CloseIcon type="primary" />
             </button>
           </div>
           <div className={styles.content}>{children}</div>
         </div>
-        <ModalOverlayUI onClick={onClose} />
+        <ModalOverlayUI onClick={onClose} data-testid="modal-overlay" />
       </>
     );
   }
