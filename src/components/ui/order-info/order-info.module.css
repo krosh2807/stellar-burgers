@@ -74,3 +74,11 @@
 .total {
   margin-left: auto;
 }
+
+.centeredPage {
+  padding-top: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #131316;
+}

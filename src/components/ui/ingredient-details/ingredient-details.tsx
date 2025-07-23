@@ -8,6 +8,7 @@ export const IngredientDetailsUI: FC<IngredientDetailsUIProps> = memo(
       ingredientData;
 
     return (
+      <div data-testid="ingredient-details-modal">
       <div className={styles.content}>
         <img
           className={styles.img}
@@ -34,6 +35,7 @@ export const IngredientDetailsUI: FC<IngredientDetailsUIProps> = memo(
           </li>
         </ul>
       </div>
+    </div>
     );
   }
 );
